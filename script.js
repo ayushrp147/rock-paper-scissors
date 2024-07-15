@@ -13,6 +13,15 @@ function getComputerChoice(){
 // console.log(getComputerChoice())
 function getHumanChoice(){
     let humanChoice=prompt("Enter rock,paper or scissors: ","rock");
+    if(humanChoice===null){
+        return "Cancel";
+    }
+    else if(humanChoice.toLowerCase()!=="rock"
+        && humanChoice.toLowerCase()!=="paper"
+        && humanChoice.toLowerCase()!=="scissors")
+    {
+        return "WrongChoice";
+    }
     return humanChoice.toLowerCase();
 }
 // console.log(getHumanChoice());
@@ -37,20 +46,36 @@ function playRound(humanChoice,computerChoice){
     }
 }
 function playGame(){
-    console.log("Welcome to Rock,Paper,Scissor! The Game has 5 rounds")
+    alert("Welcome to Rock,Paper,Scissor! The Game has 5 rounds")
+
     for(let i=0;i<5;i++){
         const humanSelection=getHumanChoice();
+        if(humanSelection==="Cancel"){
+            alert("Game Cancelled");
+            return;
+        }
+        else if(humanSelection==="WrongChoice"){
+            alert("Please enter valid choice!");
+            i--;
+            continue;
+        }
         const computerSelection=getComputerChoice();
         playRound(humanSelection,computerSelection);
     }
     if(humanScore>computerScore){
         console.log("You have won the game");
+        console.log(`You: ${humanScore}`);
+        console.log(`Computer: ${computerScore}`);
     }
     else if(computerScore>humanScore){
         console.log("You have lost the game");
+        console.log(`You: ${humanScore}`);
+        console.log(`Computer: ${computerScore}`);
     }
     else{
         console.log("Game Tied");
+        console.log(`You: ${humanScore}`);
+        console.log(`Computer: ${computerScore}`);
     }
 }
 playGame();
